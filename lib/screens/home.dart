@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/home_provider.dart';
 import '../services/location_service.dart';
 
 class Home extends StatefulWidget {
@@ -34,10 +36,13 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     getLocation();
+    final dataModel = Provider.of<HomeProvider>(context, listen: false);
+    dataModel.getWeatherData();
   }
 
   @override
   Widget build(BuildContext context) {
+    final dataModel = Provider.of<HomeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather"),
@@ -48,9 +53,6 @@ class _HomeState extends State<Home> {
 
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
               'lat= $lat long= $long',
               style: Theme.of(context).textTheme.headline4,
