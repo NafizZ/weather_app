@@ -5,13 +5,12 @@ import '../models/responses/weather_api_responses.dart';
 import 'package:http/http.dart' as http;
 
 const weatherApi = "https://api.openweathermap.org/data/2.5/weather?";
-//
-double lat = 23.76;
-double lon = 90.37;
+
 var apiKey = "f404230c73ff7d2afa795b92b72dddef";
 
-Future<WeatherApiResponse?> getWeather() async{
-  var url = Uri.parse(weatherApi+"lat=$lat&lon=$lon&appid=$apiKey");
+Future<WeatherApiResponse?> getWeather(double lat, double lon) async{
+  print("lat = $lat and lon = $lon");
+  var url = Uri.parse(weatherApi+"lat=${lat}&lon=${lon}&appid=${apiKey}");
   print(url);
   var response = await http.get(
     url,
