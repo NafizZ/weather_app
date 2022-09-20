@@ -43,15 +43,46 @@ class _HomeState extends State<Home> {
           ],
         ),
       ) 
-      : Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      : dataModel.dataExist == true ? Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
-            '${dataModel.data?.main?.temp}',
-            style: Theme.of(context).textTheme.headline4,
+            'temperature: ${(dataModel.data?.main?.temp - 273.15).toStringAsFixed(2)}° C',
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'tempMax: ${(dataModel.data?.main?.tempMax - 273.15).toStringAsFixed(2)}° C',
+              ),
+              Text(
+                'tempMin: ${(dataModel.data?.main?.tempMin - 273.15).toStringAsFixed(2)}° C',
+              ),
+            ],
+          ),
+          Text(
+            'FeelsLike: ${(dataModel.data?.main?.feelsLike - 273.15).toStringAsFixed(2)}° C',
+          ),
+          Text(
+            'Pressure: ${dataModel.data?.main?.pressure}',
+          ),
+          Text("Wind"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'wind Speed: ${dataModel.data?.wind?.speed}',
+              ),
+              Text(
+                'Wind Deg: ${dataModel.data?.wind?.deg}',
+              ),
+            ],
+          )
         ],
-      ),
+      ) : Center(
+        child: Text("NO Data found!"),
+      )
     );
   }
 }

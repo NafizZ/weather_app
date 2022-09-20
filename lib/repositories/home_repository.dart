@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../models/responses/weather_api_responses.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 const weatherApi = "https://api.openweathermap.org/data/2.5/weather?";
 
@@ -19,6 +20,8 @@ Future<WeatherApiResponse?> getWeather(double lat, double lon) async{
     WeatherApiResponse data = WeatherApiResponse();
     try{
       data =  WeatherApiResponse.fromJson(jsonDecode(response.body));
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('weatherInfo', response.body);
       print("data: ${data.main?.temp}");
     }catch(e){
       print(e);

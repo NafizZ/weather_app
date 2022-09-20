@@ -1,34 +1,16 @@
-import 'package:hive/hive.dart';
-
-part 'weather_api_responses.g.dart';
-
-@HiveType(typeId: 0)
 class WeatherApiResponse {
-  @HiveField(0)
   Coord? coord;
-  @HiveField(1)
   List<Weather>? weather;
-  @HiveField(2)
   String? base;
-  @HiveField(3)
   Main? main;
-  @HiveField(4)
   dynamic? visibility;
-  @HiveField(5)
   Wind? wind;
-  @HiveField(6)
   Clouds? clouds;
-  @HiveField(7)
   dynamic? dt;
-  @HiveField(8)
   Sys? sys;
-  @HiveField(9)
   dynamic? timezone;
-  @HiveField(10)
   dynamic? id;
-  @HiveField(11)
   String? name;
-  @HiveField(12)
   dynamic? cod;
 
 
