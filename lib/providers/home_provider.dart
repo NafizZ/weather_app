@@ -12,11 +12,10 @@ class HomeProvider extends ChangeNotifier {
   WeatherApiResponse? data;
   bool loading = false;
   bool dataExist = false;
-
-  double lat=23.35, long=90.33;
-
+  double lat=0.0, long=0.0;
 
   getWeatherData() async {
+
     loading = true;
 
     if(await InternetConnectionChecker().hasConnection){
@@ -25,30 +24,23 @@ class HomeProvider extends ChangeNotifier {
       final locationData = await service.getLocation();
 
       if(locationData != null){
-
         lat = double.parse((locationData.latitude!).toStringAsFixed(2));
         long = double.parse((locationData.longitude!).toStringAsFixed(2));
-
       }
 
-    
       data = await getWeather(lat, long);
       dataExist = true;
-     print('internet connected!!');
     }
     else{
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if(prefs.containsKey('weatherInfo')){
         dataExist = true;
-        print('internet not connected ');
         String? weatherInfo = prefs.getString('weatherInfo');
-
         data = WeatherApiResponse.fromJson(jsonDecode(weatherInfo!));
       }      
     }
     
     loading = false;
-
     notifyListeners();
   }
 }

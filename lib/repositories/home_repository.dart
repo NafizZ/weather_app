@@ -10,9 +10,7 @@ const weatherApi = "https://api.openweathermap.org/data/2.5/weather?";
 var apiKey = "f404230c73ff7d2afa795b92b72dddef";
 
 Future<WeatherApiResponse?> getWeather(double lat, double lon) async{
-  print("lat = $lat and lon = $lon");
-  var url = Uri.parse(weatherApi+"lat=${lat}&lon=${lon}&appid=${apiKey}");
-  print(url);
+  var url = Uri.parse("${weatherApi}lat=${lat}&lon=${lon}&appid=${apiKey}");
   var response = await http.get(
     url,
   );
@@ -22,7 +20,6 @@ Future<WeatherApiResponse?> getWeather(double lat, double lon) async{
       data =  WeatherApiResponse.fromJson(jsonDecode(response.body));
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('weatherInfo', response.body);
-      print("data: ${data.main?.temp}");
     }catch(e){
       print(e);
     }
